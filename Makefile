@@ -3,13 +3,12 @@ NAME_STD	= std_container.out
 SRCS		= main.cpp
 HEADERS		= vector.hpp \
 			stack.hpp \
-			utils/random_access_iterator.hpp \
-			utils/iterators_traits.hpp \
-			utils/reverse_iterator.hpp \
-			utils/is_integral.hpp \
-			utils/enable_if.hpp \
+			map.hpp \
+			set.hpp \
+			utils/iterator.hpp \
+			utils/type.hpp \
 			utils/pair.hpp \
-			utils/lexicographical_compare.hpp
+			utils/algorithm.hpp \
 
 OBJS_A		= $(SRCS:.cpp=.ft)
 OBJS_B		= $(SRCS:.cpp=.std)

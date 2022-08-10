@@ -35,21 +35,13 @@ namespace ft {
 
 	template <typename T1, typename T2>
 	bool operator<(const ft::pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
-	{
-		if (lhs.first < rhs.first)
-			return true;
-		if (rhs.first < lhs.first)
-			return false;
-		if (lhs.second < rhs.second)
-			return true;
-		return false;
-	}
+	{ return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second)); }
 
 	template <typename T1, typename T2>
-	bool operator<=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs){ return !(lhs > rhs); }
+	bool operator<=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs){ return !(rhs > lhs); }
 
 	template <typename T1, typename T2>
-	bool operator>(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs){ return (lhs > rhs); }
+	bool operator>(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs){ return (rhs < lhs); }
 
 	template <typename T1, typename T2>
 	bool operator>=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs){ return !(lhs < rhs); }
