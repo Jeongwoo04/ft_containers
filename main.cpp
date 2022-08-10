@@ -1,4 +1,8 @@
 #include <iostream>
+#include <typeinfo>
+#include <cstdlib>
+#include <list>
+
 #ifdef STD
 	#include <vector>
 	#include <map>
@@ -107,27 +111,26 @@ int main(void) {
 //   std::cout << st.empty() << "\n";
 
 
-//   std::cout << "============================================================\n"
-//             << "                          map test                          \n"
-//             << "============================================================\n";
+  std::cout << "============================================================\n"
+            << "                          map test                          \n"
+            << "============================================================\n";
 
   ft::map<char, int> mp;
   mp['a'] = 10;
   mp['c'] = 30;
   mp['a'] = 15;
   mp.insert(ft::make_pair('d', 40));
+  mp.insert(ft::make_pair('a', 10));
   mp['b'] = 20;
   mp.insert(ft::make_pair('e', 50));
 
 //   std::cout << mp.empty() << "\n";
 //   std::cout << mp.size() << "\n";
 
-  for (ft::map<char, int>::iterator it = mp.begin(); it != mp.end(); it++)
-    std::cout << it->first << ", " << it->second << "\n";
-  ft::map<char, int>::iterator it = mp.end();
-  std::cout << it->first << ", " << it->second << std::endl;
-//   ft::map<char, int>::iterator rootit = mp.getRoot();
-//   std::cout << rootit->first << ", "<< rootit->second << std::endl;
+//   for (ft::map<char, int>::iterator it = mp.begin(); it != mp.end(); it++)
+//     std::cout << it->first << ", " << it->second << "\n";
+//   ft::map<char, int>::iterator it = mp.end();
+//   std::cout << it->first << ", " << it->second << std::endl;
 
 //   std::cout << "a : " << mp.at('a') << "\n";
 //   std::cout << "b : " << mp['b'] << "\n";

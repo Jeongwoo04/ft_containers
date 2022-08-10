@@ -202,8 +202,6 @@ namespace ft {
 			}
 			bool empty() const { return __size == 0; }
 
-			/* 삽입함수 : 값을 가지고 있을 경우 pair<nd_ptr,false>를 반환
-			삽입 가능할 경우 pair<__end,true> 반환 */
 			ft::pair<iterator, bool> insert(const value_type& val)
 			{
 				node_pointer nd_ptr = __search_parent(val);
@@ -212,8 +210,7 @@ namespace ft {
 				return ft::make_pair(iterator(__insert_tree(val, nd_ptr), __nil), true);
 			}
 
-			/* idx 이터레이터의 base 값과 val 값으로 parent로 올라가면서 값 비교
-			반환값 iterator */
+			/* idx 이터레이터의 base 값과 val 값으로 parent로 올라가면서 값 비교 */
 			iterator	insert(iterator _idx, const value_type& val)
 			{
 				node_pointer nd_ptr = __search_parent(val, _idx.base());
