@@ -430,7 +430,7 @@ namespace ft {
 					else
 					{
 						node_pointer uncle = nd_ptr->__parent->__parent->__left;
-						if (__is_black_color(uncle))
+						if (__is_red_color(uncle))
 							__recoloring(nd_ptr, uncle);
 						else
 							__restructing_right(nd_ptr);
@@ -439,7 +439,7 @@ namespace ft {
 				getRoot()->__is_black = true;
 			}
 
-			/* insert로 변화된 트리 초기값 설정 */
+			// /* insert로 변화된 트리 초기값 설정 */
 			void	__insert_init(const node_pointer nd_ptr)
 			{
 				if (__begin == __end || __comp(nd_ptr->__value, __begin->__value))
