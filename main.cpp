@@ -35,28 +35,32 @@ int main(void)
 	for (ft::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	for (ft::vector<int>::reverse_iterator rit = vec.rbegin(); rit != vec.rend(); rit++)
 		std::cout << *rit << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
-	std::cout << vec.size() << "\n";
-
-	vec.resize(10, 42);
+	vec.resize(30, 42);
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	for (size_t i = 0; i < vec.size(); i++)
 		std::cout << vec[i] << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	vec.pop_back();
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	for (size_t i = 0; i < vec.size(); i++)
 		std::cout << vec.at(i) << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	vec.reserve(20);
-	std::cout << vec.capacity() << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	std::cout << vec.front() << "\n";
 	std::cout << vec.back() << "\n";
@@ -65,23 +69,28 @@ int main(void)
 	for (size_t i = 0; i < vec.size(); i++)
 		std::cout << vec[i] << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	vec.erase(vec.end() - 5);
 	for (size_t i = 0; i < vec.size(); i++)
 		std::cout << vec[i] << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	vec.assign(5, 10);
 	for (size_t i = 0; i < vec.size(); i++)
 		std::cout << vec[i] << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	ft::vector<int> copy_vec = vec;
 	for (size_t i = 0; i < copy_vec.size(); i++)
 		std::cout << copy_vec[i] << " ";
 	std::cout << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 
 	std::cout << (vec == copy_vec) << " " << (vec != copy_vec) << "\n";
+	std::cout << "capacity : " << vec.capacity() << ", size : " << vec.size() << "\n";
 	std::cout << "vector max size  : " << vec.max_size() << std::endl;
 
 	std::cout	<< "                         stack test                         \n"
@@ -109,12 +118,12 @@ int main(void)
 	std::cout	<< "                          map test                          \n"
 				<< "============================================================\n";
 
+
 	ft::map<char, int> mp;
 	mp['a'] = 10;
-	mp['c'] = 30;
-	mp['a'] = 15;
-	mp.insert(ft::make_pair('d', 40));
 	mp['b'] = 20;
+	mp['c'] = 30;
+	mp.insert(ft::make_pair('d', 40));
 	mp.insert(ft::make_pair('e', 50));
 
 	std::cout << mp.empty() << "\n";
@@ -122,8 +131,6 @@ int main(void)
 
 	for (ft::map<char, int>::iterator it = mp.begin(); it != mp.end(); it++)
 		std::cout << it->first << ", " << it->second << "\n";
-	ft::map<char, int>::iterator it = mp.end();
-	std::cout << it->first << ", " << it->second << std::endl;
 
 	std::cout << "a : " << mp.at('a') << "\n";
 	std::cout << "b : " << mp['b'] << "\n";
@@ -141,7 +148,5 @@ int main(void)
 	ft::map<char, int> copy_mp = mp;
 
 	std::cout << (mp == copy_mp) << " " << (mp != copy_mp) << "\n";
-	std::cout << "map max size  : " << mp.max_size() << std::endl;
-
-	return (0);
+	return 0;
 }
