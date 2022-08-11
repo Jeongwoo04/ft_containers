@@ -1,6 +1,6 @@
 main.ft
 main.std
-ft_containers.out
-std_containers.out
+ft_container.out
+std_container.out
 .vscode
 *.txt
