@@ -522,85 +522,80 @@ namespace ft {
 					nd_fixup->__is_black = __is_black_color(nd_ptr);
 				}
 				/* 삭제한 노드가 red 색상이면 그냥 지워도 상관 없음. */
-				if (origin_color)
+				if (nd_fixup->__is_black == false)
+					;
+				else if (nd_fixup->__is_black == true && nd_recoloring->__is_black == false)
+					nd_recoloring->__is_black = true;
+				else
 					__remove_fixup(nd_recoloring);
 			}
 
-			/* nd_ptr이 루트노드가 아니고 black 일 경우 fixup 반복문 */
 			void	__remove_fixup(node_pointer nd_ptr)
 			{
-				while (nd_ptr != getRoot() && __is_black_color(nd_ptr))
+				if (nd_ptr == getRoot())
+					return;
+				node_pointer sibling = __sibling(nd_ptr);
+				node_pointer parent = nd_ptr->__parent;
+				if (sibling->__is_black == false)
 				{
-					if (__is_left_child(nd_ptr))
-						__remove_fixup_left(nd_ptr);
+					parent->__is_black = false;
+					sibling->__is_black = true;
+					if (nd_ptr == parent->__left)
+						__rot_left(parent);
 					else
-						__remove_fixup_right(nd_ptr);
+						__rot_right(parent);
 				}
-				nd_ptr->__is_black = true;
+				sibling = __sibling(nd_ptr);
+				if (parent->__is_black == true && sibling->__is_black == true
+					&& __is_black_color(sibling->__left) && __is_black_color(sibling->__right))
+				{
+					sibling->__is_black = false;
+					__remove_fixup(parent);
+					return;
+				}
+				if (parent->__is_black == false && sibling->__is_black == true
+					&& __is_black_color(sibling->__left) && __is_black_color(sibling->__right))
+				{
+					sibling->__is_black = false;
+					parent->__is_black = true;
+					return;
+				}
+				if ( sibling->__is_black == true)
+				{
+					if (nd_ptr == nd_ptr->__parent->__left && __is_black_color(sibling->__right) && !__is_black_color(sibling->__left))
+					{
+						sibling->__is_black = false;
+						sibling->__left->__is_black = true;
+						__rot_right(sibling);
+					}
+					else if (nd_ptr == nd_ptr->__parent->__right && __is_black_color(sibling->__left) && !__is_black_color(sibling->__right))
+					{
+						sibling->__is_black = false;
+						sibling->__right->__is_black = true;
+						__rot_left(sibling);
+					}
+				}
+				sibling = __sibling(nd_ptr);
+				sibling->__is_black = parent->__is_black;
+				parent->__is_black = true;
+				if (nd_ptr == nd_ptr->__parent->__left)
+				{
+					__rot_left(parent);
+					sibling->__right->__is_black = true;
+				}
+				else if (nd_ptr == nd_ptr->__parent->__right)
+				{
+					__rot_right(parent);
+					sibling->__left->__is_black = true;
+				}
+			}
+			node_pointer __sibling(node_pointer nd_ptr)
+			{
+				if (nd_ptr == nd_ptr->__parent->__left)
+					return nd_ptr->__parent->__right;
+				return nd_ptr->__parent->__left;
 			}
 
-			void	__remove_fixup_left(node_pointer& nd_ptr)
-			{
-				node_pointer sibling = nd_ptr->__parent->__right;
-				if (__is_red_color(sibling))
-				{
-					sibling->__is_black = true;
-					nd_ptr->__parent->__is_black = false;
-					__rot_left(nd_ptr->__parent);
-					sibling = nd_ptr->__parent->__right;
-				}
-				if (__is_black_color(sibling->__left) && __is_black_color(sibling->__right))
-				{
-					sibling->__is_black = false;
-					nd_ptr = nd_ptr->__parent;
-				}
-				else if (__is_black_color(sibling->__right))
-				{
-					sibling->__left->__is_black = true;
-					sibling->__is_black = false;
-					__rot_right(sibling);
-					sibling = nd_ptr->__parent->__right;
-				}
-				if (__is_red_color(sibling->__right))
-				{
-					sibling->__is_black = __is_black_color(nd_ptr->__parent);
-					nd_ptr->__parent->__is_black = true;
-					sibling->__right->__is_black = true;
-					__rot_left(nd_ptr->__parent);
-					nd_ptr = getRoot();
-				}
-			}
-			void	__remove_fixup_right(node_pointer& nd_ptr)
-			{
-				node_pointer sibling = nd_ptr->__parent->__left;
-				if (__is_red_color(sibling))
-				{
-					sibling->__is_black = true;
-					nd_ptr->__parent->__is_black = false;
-					__rot_right(nd_ptr->__parent);
-					sibling = nd_ptr->__parent->__left;
-				}
-				if (__is_black_color(sibling->__right) && __is_black_color(sibling->__left))
-				{
-					sibling->__is_black = false;
-					nd_ptr = nd_ptr->__parent;
-				}
-				else if (__is_black_color(sibling->__left))
-				{
-					sibling->__right->__is_black = true;
-					sibling->__is_black = false;
-					__rot_left(sibling);
-					sibling = nd_ptr->__parent->__left;
-				}
-				if (__is_red_color(sibling->__left))
-				{
-					sibling->__is_black = __is_black_color(nd_ptr->__parent);
-					nd_ptr->__parent->__is_black = true;
-					sibling->__left->__is_black = true;
-					__rot_right(nd_ptr->__parent);
-					nd_ptr = getRoot();
-				}
-			}
 			/* 삭제할 노드의 부모가 end 노드일 경우와 아닐경우의 link 함수 */
 			void	__link_parent_child(node_pointer before, node_pointer after)
 			{
@@ -622,14 +617,14 @@ namespace ft {
 				nd_ptr->__right = ch->__left;
 				if (nd_ptr->__right != __nil)
 					nd_ptr->__right->__parent = nd_ptr;
-				node_pointer pa = nd_ptr->__parent;
-				ch->__parent = pa;
-				if (pa == __end)
+				node_pointer parent = nd_ptr->__parent;
+				ch->__parent = parent;
+				if (parent == __end)
 					setRoot(ch);
 				else if (__is_left_child(nd_ptr))
-					pa->__left = ch;
+					parent->__left = ch;
 				else
-					pa->__right = ch;
+					parent->__right = ch;
 				ch->__left = nd_ptr;
 				nd_ptr->__parent = ch;
 			}
@@ -639,14 +634,14 @@ namespace ft {
 				nd_ptr->__left = ch->__right;
 				if (nd_ptr->__left != __nil)
 					nd_ptr->__left->__parent = nd_ptr;
-				node_pointer pa = nd_ptr->__parent;
-				ch->__parent = pa;
-				if (pa == __end)
+				node_pointer parent = nd_ptr->__parent;
+				ch->__parent = parent;
+				if (parent == __end)
 					setRoot(ch);
 				else if (__is_left_child(nd_ptr))
-					pa->__left = ch;
+					parent->__left = ch;
 				else
-					pa->__right = ch;
+					parent->__right = ch;
 				ch->__right = nd_ptr;
 				nd_ptr->__parent = ch;
 			}

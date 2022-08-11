@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:04:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/11 16:46:05 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/11 17:21:26 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,12 +184,7 @@ namespace ft {
 				if (n <= size() || n <= capacity())
 					return;
 				if (n < capacity() * 2)
-				{
-					if (n > size() * 2)
-						;
-					else
-						n = capacity() * 2;
-				}
+					n = capacity() * 2;
 				size_type x_size = size();
 				size_type x_capacity = capacity();
 				pointer _ptr = _alloc.allocate(n);
