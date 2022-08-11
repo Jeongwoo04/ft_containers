@@ -137,9 +137,8 @@ namespace ft {
 
 		public:
 		/* 기본생성자 : leaf 노드에 1 만큼 할당 후 leaf 노드 포인터에 value타입으로 allocator::construct
-		-> leaf 노드 포인터의 부모와 왼쪽 오른쪽을 전부 leaf 노드로 설정(root)
-		-> root 노드는 black 색상을 가짐 end 포인터에 노드를 make_node 후 begin 포인터에 넣어줌
-		-> make_node는 노드를 만드는 함수로써 __is_black이 false 값을 가지기때문에 true로 변환.*/
+		-> root는 black 색상을 가짐 end 포인터에 노드를 make_node 후 begin 포인터에 넣어줌
+		-> getRoot(), setRoot() 로 root 접근 및 설정 */
 			__rbt(const compare_type& comp, const allocator_type& alloc)
 			: __comp(comp), __alloc(alloc), __size(size_type())
 			{
@@ -154,7 +153,7 @@ namespace ft {
 				__begin = __end;
 			}
 
-			/* construct의 과정을 따르고 target rbt의 iterator begin()부터 end()까지 넣어줌 */
+			/* construct의 과정을 따르고 target의 반복자로 채움 */
 			__rbt(const __rbt& rbt)
 			: __comp(rbt.__comp), __alloc(rbt.__alloc), __size(size_type())
 			{
@@ -263,7 +262,7 @@ namespace ft {
 				return 1;
 			}
 
-			/* first iterator ~ last iterator 반복문 돌면서 erase */
+			/*  반복자 범위 만큼 erase */
 			void	erase(iterator first, iterator last)
 			{
 				for ( ; first != last ;)
@@ -321,7 +320,7 @@ namespace ft {
 			node_pointer	getRoot() const
 			{ return __end->__left; }
 
-			/* 해당 노드 포인터를 root 로 설정 */
+			/* 해당 노드 포인터를 root->left 로 설정 */
 			void	setRoot(const node_pointer nd_ptr)
 			{
 				nd_ptr->__parent = __end;
@@ -375,8 +374,7 @@ namespace ft {
 							return _idx;
 					}
 				}
-				/* insert 해야할 위치 root 노드 설정(left or right) 후 root 노드 반환
-				같을경우 root가 노드로 설정된 상태로만 반환 */
+				/* insert 해야할 위치 */
 				node_pointer cur = getRoot();
 				node_pointer tmp = __end;
 				for ( ; cur != __nil ; )
@@ -389,7 +387,6 @@ namespace ft {
 					else
 						return cur;
 				}
-				/* 루트 노드의 leaf가 비어있을경우 그대로 반환 */
 				return tmp;
 			}
 			/* parent value보다 작으면 왼쪽 크면 오른쪽 삽입
@@ -443,10 +440,9 @@ namespace ft {
 					__begin = nd_ptr;
 				__size++;
 			}
-			/* recoloring 노드 포인터설정 매개변수로 받은 노드 포인터를 nd_fixup으로 설정
-			nd_ptr : 삭제될 노드 포인터
-			nd_fixup : 옮겨 심어질 노드 포인터
-			nd_recoloring : recoloring을 고려할 노드 포인터 */
+			/* nd_ptr : 삭제될 노드 포인터
+			nd_fixup : 옮겨질 노드 포인터
+			nd_recoloring : recoloring할 노드 포인터 */
 			void	__remove(node_pointer nd_ptr)
 			{
 				node_pointer nd_recoloring;
@@ -491,7 +487,7 @@ namespace ft {
 					__remove_fixup(nd_recoloring);
 			}
 
-			/* nd_ptr이 루트노드가 아니고 black 일 경우 fixup 반복문 */
+			/* nd_ptr이 루트가 아니고 black 일 경우 fixup 반복문 */
 			void	__remove_fixup(node_pointer nd_ptr)
 			{
 				while (nd_ptr != getRoot() && __is_black_color(nd_ptr))
@@ -566,18 +562,14 @@ namespace ft {
 					nd_ptr = getRoot();
 				}
 			}
-			/* 삭제할 노드의 부모가 end 노드일 경우와 아닐경우의 link 함수 */
 			void	__link_parent_child(node_pointer before, node_pointer after)
 			{
-				/* __end 일 경우 오른편에 존재하는 노드나 leaf 가 없기때문에 setRoot */
 				if (before->__parent == __end)
 					setRoot(after);
-				/* 아닐경우 직접 옮김 */
 				else if (__is_left_child(before))
 					before->__parent->__left = after;
 				else
 					before->__parent->__right = after;
-				/* 삭제 이전의 부모와 link */
 				after->__parent = before->__parent;
 			}
 
