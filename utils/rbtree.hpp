@@ -439,6 +439,38 @@ namespace ft {
 				getRoot()->__is_black = true;
 			}
 
+			void	__recoloring(node_pointer& nd_ptr, node_pointer& uncle)
+			{
+				nd_ptr->__parent->__is_black = true;
+				uncle->__is_black = true;
+				uncle->__parent->__is_black = false;
+				nd_ptr = uncle->__parent;
+			}
+
+			void	__restructing_left(node_pointer nd_ptr)
+			{
+				if (__is_right_child(nd_ptr))
+				{
+					nd_ptr = nd_ptr->__parent;
+					__rot_left(nd_ptr);
+				}
+				nd_ptr->__parent->__is_black = true;
+				nd_ptr->__parent->__parent->__is_black = false;
+				__rot_right(nd_ptr->__parent->__parent);
+			}
+
+			void	__restructing_right(node_pointer nd_ptr)
+			{
+				if (__is_left_child(nd_ptr))
+				{
+					nd_ptr = nd_ptr->__parent;
+					__rot_right(nd_ptr);
+				}
+				nd_ptr->__parent->__is_black = true;
+				nd_ptr->__parent->__parent->__is_black = false;
+				__rot_left(nd_ptr->__parent->__parent);
+			}
+
 			// /* insert로 변화된 트리 초기값 설정 */
 			void	__insert_init(const node_pointer nd_ptr)
 			{
@@ -582,38 +614,6 @@ namespace ft {
 					before->__parent->__right = after;
 				/* 삭제 이전의 부모와 link */
 				after->__parent = before->__parent;
-			}
-
-			void	__recoloring(node_pointer nd_ptr, node_pointer uncle)
-			{
-				nd_ptr->__parent->__is_black = true;
-				uncle->__is_black = true;
-				uncle->__parent->__is_black = false;
-				nd_ptr = uncle->__parent;
-			}
-
-			void	__restructing_left(node_pointer nd_ptr)
-			{
-				if (__is_right_child(nd_ptr))
-				{
-					nd_ptr = nd_ptr->__parent;
-					__rot_left(nd_ptr);
-				}
-				nd_ptr->__parent->__is_black = true;
-				nd_ptr->__parent->__parent->__is_black = false;
-				__rot_right(nd_ptr->__parent->__parent);
-			}
-
-			void	__restructing_right(node_pointer nd_ptr)
-			{
-				if (__is_left_child(nd_ptr))
-				{
-					nd_ptr = nd_ptr->__parent;
-					__rot_right(nd_ptr);
-				}
-				nd_ptr->__parent->__is_black = true;
-				nd_ptr->__parent->__parent->__is_black = false;
-				__rot_left(nd_ptr->__parent->__parent);
 			}
 
 			void	__rot_left(node_pointer nd_ptr)
