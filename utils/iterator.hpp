@@ -7,6 +7,7 @@
 
 namespace ft {
 
+	/* iterators_traits */
 	template <class Iterator>
 	class iterator_traits
 	{
@@ -40,6 +41,7 @@ namespace ft {
 			typedef std::random_access_iterator_tag		iterator_category;
 	};
 
+	/* reverse_iterator */
 	template <class Iterator>
 	class reverse_iterator {
 		protected:
@@ -148,6 +150,7 @@ namespace ft {
 			const reverse_iterator<Iter2>& rhs)
 		{ return rhs.base() - lhs.base(); }
 
+		/* random_access_iterator */
 		template <typename T>
 		class random_access_iterator : public std::iterator<std::random_access_iterator_tag, T>
 		{
@@ -253,86 +256,87 @@ namespace ft {
 			typename random_access_iterator<T1>::difference_type operator-(const random_access_iterator<T1>& lhs, const random_access_iterator<T2>& rhs)
 			{ return (lhs.base() - rhs.base()); }
 
-	template <typename T, typename U>
-	class tree_iterator {
-		public:
-		typedef T	value_type;
-		typedef T*	pointer;
-		typedef T&	reference;
-		typedef U*	iterator_type;
-		typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
-		typedef typename iterator_traits<iterator_type>::value_type			node_type;
-		typedef typename iterator_traits<iterator_type>::pointer			node_pointer;
-		typedef typename iterator_traits<iterator_type>::reference			node_reference;
-		typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
+		/* tree_iterator */
+		template <typename T, typename U>
+		class tree_iterator {
+			public:
+			typedef T	value_type;
+			typedef T*	pointer;
+			typedef T&	reference;
+			typedef U*	iterator_type;
+			typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+			typedef typename iterator_traits<iterator_type>::value_type			node_type;
+			typedef typename iterator_traits<iterator_type>::pointer			node_pointer;
+			typedef typename iterator_traits<iterator_type>::reference			node_reference;
+			typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
 
-		private:
-		node_pointer	__cur;
-		node_pointer	__nil;
+			private:
+			node_pointer	__cur;
+			node_pointer	__nil;
 
-		public:
-		tree_iterator() : __cur(ft::NIL), __nil(ft::NIL) {}
-		tree_iterator(node_pointer cur, node_pointer nil) : __cur(cur), __nil(nil) {}
-		tree_iterator(const tree_iterator& tit) : __cur(tit.__cur), __nil(tit.__nil) {}
-		~tree_iterator() {}
+			public:
+			tree_iterator() : __cur(ft::NIL), __nil(ft::NIL) {}
+			tree_iterator(node_pointer cur, node_pointer nil) : __cur(cur), __nil(nil) {}
+			tree_iterator(const tree_iterator& tit) : __cur(tit.__cur), __nil(tit.__nil) {}
+			~tree_iterator() {}
 
-		tree_iterator& operator=(const tree_iterator& rhs)
-		{
-			if (this != &rhs)
+			tree_iterator& operator=(const tree_iterator& rhs)
 			{
-				__cur = rhs.__cur;
-				__nil = rhs.__nil;
+				if (this != &rhs)
+				{
+					__cur = rhs.__cur;
+					__nil = rhs.__nil;
+				}
+				return (*this);
 			}
-			return (*this);
-		}
 
-		node_pointer	base() const		{ return (__cur); }
-		pointer			operator->() const	{ return (&__cur->__value); }
-		reference		operator*() const	{ return (__cur->__value); }
+			node_pointer	base() const		{ return (__cur); }
+			pointer			operator->() const	{ return (&__cur->__value); }
+			reference		operator*() const	{ return (__cur->__value); }
 
-		tree_iterator& operator++()
-		{
-			__cur = __next_node(__cur, __nil);
-			return (*this);
-		}
+			tree_iterator& operator++()
+			{
+				__cur = __next_node(__cur, __nil);
+				return (*this);
+			}
 
-		tree_iterator operator++(int)
-		{
-			tree_iterator tmp(*this);
-			++(*this);
-			return (tmp);
-		}
+			tree_iterator operator++(int)
+			{
+				tree_iterator tmp(*this);
+				++(*this);
+				return (tmp);
+			}
 
-		tree_iterator& operator--()
-		{
-			__cur = __prev_node(__cur, __nil);
-			return (*this);
-		}
+			tree_iterator& operator--()
+			{
+				__cur = __prev_node(__cur, __nil);
+				return (*this);
+			}
 
-		tree_iterator operator--(int)
-		{
-			tree_iterator tmp(*this);
-			--(*this);
-			return (tmp);
-		}
+			tree_iterator operator--(int)
+			{
+				tree_iterator tmp(*this);
+				--(*this);
+				return (tmp);
+			}
 
-		template <typename V>
-		bool operator==(const tree_iterator<V, node_type>& x) const
-		{ return (__cur == x.base()); }
+			template <typename V>
+			bool operator==(const tree_iterator<V, node_type>& x) const
+			{ return (__cur == x.base()); }
 
-		template <typename V>
-		bool operator!=(const tree_iterator<V, node_type>& x) const
-		{ return !(*this == x); }
+			template <typename V>
+			bool operator!=(const tree_iterator<V, node_type>& x) const
+			{ return !(*this == x); }
 
-		operator tree_iterator<const value_type, node_type>(void) const
-		{ return (tree_iterator<const value_type, node_type>(__cur, __nil)); }
+			operator tree_iterator<const value_type, node_type>(void) const
+			{ return (tree_iterator<const value_type, node_type>(__cur, __nil)); }
 
-		friend bool operator==(const tree_iterator& lhs, const tree_iterator& rhs)
-		{ return (lhs.__cur == rhs.__cur); }
+			friend bool operator==(const tree_iterator& lhs, const tree_iterator& rhs)
+			{ return (lhs.__cur == rhs.__cur); }
 
-		friend bool operator!=(const tree_iterator& lhs, const tree_iterator& rhs)
-		{ return (!(lhs == rhs)); }
-	};
+			friend bool operator!=(const tree_iterator& lhs, const tree_iterator& rhs)
+			{ return (!(lhs == rhs)); }
+		};
 
 }
 

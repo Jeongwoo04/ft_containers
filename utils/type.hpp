@@ -24,7 +24,7 @@
 
 namespace ft {
 
-	/* mynullptr NIL(null leaf) */
+	/* mynullptr : NIL */
 	const class nullptr_t
 	{
 		private:
