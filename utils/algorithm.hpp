@@ -3,7 +3,6 @@
 
 namespace ft {
 
-	/* 사전식 비교 */
 	template <typename InputIterator1, typename InputIterator2>
 	bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1,
 		InputIterator2 first2, InputIterator2 last2)
@@ -40,7 +39,6 @@ namespace ft {
 		return (first2 != last2);
 	}
 
-	/* equal */
 	template <class InputIterator1, class InputIterator2>
 	bool equal(InputIterator1 first1, InputIterator1 last1,
 			InputIterator2 first2)

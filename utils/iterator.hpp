@@ -7,7 +7,6 @@
 
 namespace ft {
 
-	/* iterators_traits */
 	template <class Iterator>
 	class iterator_traits
 	{
@@ -41,7 +40,6 @@ namespace ft {
 			typedef std::random_access_iterator_tag		iterator_category;
 	};
 
-	/* reverse_iterator */
 	template <class Iterator>
 	class reverse_iterator {
 		protected:
@@ -150,7 +148,6 @@ namespace ft {
 			const reverse_iterator<Iter2>& rhs)
 		{ return rhs.base() - lhs.base(); }
 
-		/* random_access_iterator */
 		template <typename T>
 		class random_access_iterator : public std::iterator<std::random_access_iterator_tag, T>
 		{
@@ -256,7 +253,6 @@ namespace ft {
 			typename random_access_iterator<T1>::difference_type operator-(const random_access_iterator<T1>& lhs, const random_access_iterator<T2>& rhs)
 			{ return (lhs.base() - rhs.base()); }
 
-		/* tree_iterator */
 		template <typename T, typename U>
 		class tree_iterator {
 			public:

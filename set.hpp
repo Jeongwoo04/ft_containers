@@ -32,13 +32,11 @@ namespace ft {
 			typedef std::ptrdiff_t			difference_type;
 			typedef std::size_t				size_type;
 
-		private:
-			compare_type	__comp;
-			allocator_type	__alloc;
-			ft::__rbt<const value_type, key_type, value_compare, allocator_type>	__rbt;
+			typedef typename ft::__rbt<const value_type, key_type, value_compare, allocator_type>::iterator			iterator;
+			typedef typename ft::__rbt<const value_type, key_type, value_compare, allocator_type>::const_iterator	const_iterator;
+			typedef ft::reverse_iterator<iterator>			reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
-		public:
-			/* orthodox */
 			explicit set(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
 			: __comp(comp), __alloc(alloc), __rbt(comp, alloc) {}
 
@@ -57,12 +55,6 @@ namespace ft {
 				swap(tmp);
 				return *this;
 			}
-
-			/* iterators */
-			typedef typename ft::__rbt<const value_type, key_type, value_compare, allocator_type>::iterator			iterator;
-			typedef typename ft::__rbt<const value_type, key_type, value_compare, allocator_type>::const_iterator	const_iterator;
-			typedef ft::reverse_iterator<iterator>			reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 			iterator				begin()			{ return __rbt.begin(); }
 			iterator				end()			{ return __rbt.end(); }
@@ -112,9 +104,13 @@ namespace ft {
 			{ return __rbt.equal_range(val); }
 
 			allocator_type	get_allocator() const	{ return __rbt.get_allocator(); }
+
+			private:
+				compare_type	__comp;
+				allocator_type	__alloc;
+				ft::__rbt<const value_type, key_type, value_compare, allocator_type>	__rbt;
 	};
 
-	/* operator */
 	template <class T, class Compare, class Alloc>
 	bool operator==(const ft::set<T, Compare, Alloc>& __x,
 		const ft::set<T, Compare, Alloc>& __y)
@@ -145,7 +141,6 @@ namespace ft {
 		const ft::set<T, Compare, Alloc>& __y)
 	{ return !(__x < __y); }
 
-	/* non-member function */
 	template <class T, class Compare, class Alloc>
 	void	swap(ft::set<T, Compare, Alloc>& __x,
 		ft::set<T, Compare, Alloc>& __y)

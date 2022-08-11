@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:04:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/11 10:50:37 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/10 11:17:31 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ namespace ft {
 			pointer			_capacity;
 			allocator_type	_alloc;
 
-		/* orthodox */
 		public:
 			explicit vector(const allocator_type& alloc = allocator_type())
 				: _begin(NULL), _end(NULL), _capacity(NULL), _alloc(alloc) {}
@@ -111,7 +110,6 @@ namespace ft {
 				return *this;
 			}
 
-			/* iterators */
 			iterator begin()						{ return iterator(_begin); }
 			iterator end()							{ return iterator(_end); }
 			const_iterator begin() const			{ return const_iterator(_begin); }
@@ -144,7 +142,7 @@ namespace ft {
 			const_reference front() const	{ return *_begin; }
 			const_reference back() const	{ return *(_end - 1); }
 
-			// vector.data() test가 있어 추가
+			// vector.data() 형이 오는 test가 있어 추가
 			T* data() throw() 				{ return reinterpret_cast<T*>(_begin); }
 			const T* data() const throw()	{ return reinterpret_cast<const T*>(_begin); }
 
@@ -176,6 +174,7 @@ namespace ft {
 				}
 			}
 			size_type capacity() const	{ return (_capacity - _begin); }
+			// size_type capacity() const	{ return static_cast<size_type>(_capacity - _begin); }
 			bool empty() const { return _begin == _end; }
 
 			// reserve >> insert , assign , push_back 등 각 함수에서 n 만큼 받을 인자를 매개변수로 취함

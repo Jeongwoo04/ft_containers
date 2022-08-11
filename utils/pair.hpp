@@ -12,7 +12,6 @@ namespace ft {
 		first_type first;
 		second_type second;
 
-		/* orthodox */
 		pair(): first(), second(){}
 
 		template <typename U, typename V>
@@ -28,7 +27,6 @@ namespace ft {
 		}
 	};
 
-	/* operator */
 	template <typename T1, typename T2>
 	bool operator==(const ft::pair<T1,T2>& lhs, const pair<T1,T2>& rhs){ return (lhs.first == rhs.first && lhs.second == rhs.second); }
 
@@ -48,9 +46,9 @@ namespace ft {
 	template <typename T1, typename T2>
 	bool operator>=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs){ return !(lhs < rhs); }
 
-	/* non-member function */
 	template <typename T1, typename T2>
 	ft::pair<T1,T2> make_pair(T1 t1, T2 t2){ return ft::pair<T1,T2>(t1, t2); }
+
 
 }
 

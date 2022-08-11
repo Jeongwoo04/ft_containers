@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:11:35 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/11 12:44:17 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/10 13:05:10 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ namespace ft {
 				value_compare __value_comp;
 				ft::__rbt<value_type, key_type, value_compare, allocator_type> __rbt;
 
-		/* orthodox */
 		public:
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 				: __key_comp(comp), __value_comp(comp), __rbt(__value_comp, alloc) {}
@@ -83,6 +82,7 @@ namespace ft {
 			map(const map& m) : __key_comp(m.__key_comp), __value_comp(m.__value_comp), __rbt(m.__rbt) {}
 			~map(void) {}
 
+			/* member function for util */
 			map& operator=(const map& m)
 			{
 				if (this != &m)
@@ -94,7 +94,6 @@ namespace ft {
 				return *this;
 			}
 
-			/* iterators */
 			iterator 				begin(void) 		{ return __rbt.begin(); }
 			iterator				end(void)			{ return __rbt.end(); }
 			const_iterator			begin(void) const	{ return __rbt.begin(); }
@@ -104,7 +103,6 @@ namespace ft {
 			const_reverse_iterator	rbegin(void) const	{ return reverse_iterator(end()); }
 			const_reverse_iterator	rend(void) const	{ return reverse_iterator(begin()); }
 
-			/* member functions */
 			bool	empty(void) const { return __rbt.empty(); }
 			size_type	size(void) const { return __rbt.size(); }
 			size_type	max_size(void) const { return __rbt.max_size(); }
@@ -191,7 +189,6 @@ namespace ft {
 
 		};
 
-		/* operator */
 		template <class Key, class T, class Compare, class Alloc>
 		bool operator==(const ft::map<Key, T, Compare, Alloc>& x,
 						const ft::map<Key, T, Compare, Alloc>& y)
@@ -222,7 +219,6 @@ namespace ft {
 						const ft::map<Key, T, Compare, Alloc>& y)
 		{ return !(x < y); }
 
-		/* non-member function */
 		template <class Key, class T, class Compare, class Alloc>
 		void swap(ft::map<Key, T, Compare, Alloc>& x,
 				ft::map<Key, T, Compare, Alloc>& y)
