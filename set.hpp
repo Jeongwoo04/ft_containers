@@ -32,11 +32,13 @@ namespace ft {
 			typedef std::ptrdiff_t			difference_type;
 			typedef std::size_t				size_type;
 
+			/* iterator */
 			typedef typename ft::__rbt<const value_type, key_type, value_compare, allocator_type>::iterator			iterator;
 			typedef typename ft::__rbt<const value_type, key_type, value_compare, allocator_type>::const_iterator	const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
+			/* orthdox */
 			explicit set(const compare_type& comp = compare_type(), const allocator_type& alloc = allocator_type())
 			: __comp(comp), __alloc(alloc), __rbt(comp, alloc) {}
 
@@ -141,6 +143,7 @@ namespace ft {
 		const ft::set<T, Compare, Alloc>& __y)
 	{ return !(__x < __y); }
 
+	/* non-member function */
 	template <class T, class Compare, class Alloc>
 	void	swap(ft::set<T, Compare, Alloc>& __x,
 		ft::set<T, Compare, Alloc>& __y)

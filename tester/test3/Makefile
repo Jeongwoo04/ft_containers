@@ -34,7 +34,7 @@ RM          = rm -f
 all         :
 	@./compile.sh
 	@./run.sh
-	@make fclean
+#	@make fclean
 
 .PHONY      : clean
 clean       :

@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:04:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/11 17:21:26 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/12 14:28:30 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ namespace ft {
 			allocator_type	_alloc;
 
 		public:
+			/* orthdox */
 			explicit vector(const allocator_type& alloc = allocator_type())
 				: _begin(NULL), _end(NULL), _capacity(NULL), _alloc(alloc) {}
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
@@ -119,7 +120,6 @@ namespace ft {
 			const_reverse_iterator rbegin() const	{ return const_reverse_iterator(end()); }
 			const_reverse_iterator rend() const		{ return const_reveres_iterator(begin()); }
 
-			/* element 접근자 */
 			reference operator[](size_type n)				{ return _begin[n]; }
 			const_reference operator[](size_type n) const	{ return _begin[n]; }
 
@@ -147,17 +147,17 @@ namespace ft {
 			const T* data() const throw()	{ return reinterpret_cast<const T*>(_begin); }
 
 			size_type size() const	{ return (_end - _begin); }
-			// if (!vector.size() == static_cast<size_type>(-1)) 테스트문이 있음.
-			// size_type size() const		{ return static_cast<size_type>(_end - _begin); }
+			/* if (!vector.size() == static_cast<size_type>(-1)) 테스트문이 있음.
+			size_type size() const		{ return static_cast<size_type>(_end - _begin); } */
 
-			// type에 따른 allocator 의 max_size()와 std::numeric_limits<size_type>dml max() 중 작은 값 반환
+			/* type에 따른 allocator 의 max_size()와 std::numeric_limits<size_type>dml max() 중 작은 값 반환 */
 			size_type max_size() const
 			{
 				return std::min<size_type>(std::numeric_limits<size_type>::max(),
 					type_traits::max_size(type_allocator()));
 			}
-			// 인자로 받을 n의 크기가 size 보다 작으면 나머지 공간은 삭제
-			// size 보다 크면 capacity와 비교 -> reserve로 늘릴지 판단 후 할당
+			/* 인자로 받을 n의 크기가 size 보다 작으면 나머지 공간은 삭제
+			size 보다 크면 capacity와 비교 -> reserve로 늘릴지 판단 후 할당 */
 			void resize(size_type n, value_type val = value_type())
 			{
 				if (size() > n)
@@ -174,11 +174,11 @@ namespace ft {
 				}
 			}
 			size_type capacity() const	{ return (_capacity - _begin); }
-			// size_type capacity() const	{ return static_cast<size_type>(_capacity - _begin); }
+			/* size_type capacity() const	{ return static_cast<size_type>(_capacity - _begin); } */
 			bool empty() const { return _begin == _end; }
 
-			// reserve >> insert , assign , push_back 등 각 함수에서 n 만큼 받을 인자를 매개변수로 취함
-			// 받아올 인자 n이, capacity < n < capacity * 2 일경우 capacity를 2배로 늘려주고 각 멤버 값을 정리 후 재할당.
+			/* reserve >> insert , assign , push_back 등 각 함수에서 n 만큼 받을 인자를 매개변수로 취함
+			받아올 인자 n이, capacity < n < capacity * 2 일경우 capacity를 2배로 늘려주고 각 멤버 값을 정리 후 재할당. */
 			void reserve(size_type n)
 			{
 				if (n <= size() || n <= capacity())

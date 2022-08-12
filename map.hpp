@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:11:35 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/10 13:05:10 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/12 14:25:19 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ namespace ft {
 						{ return comp(x, y.first); }
 			};
 
-			typedef typename ft::__rbt<value_type, key_type, value_compare, allocator_type>::iterator iterator;
-			typedef typename ft::__rbt<value_type, key_type, value_compare, allocator_type>::const_iterator const_iterator;
-			typedef ft::reverse_iterator<iterator> reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+		/* iterator */
+		typedef typename ft::__rbt<value_type, key_type, value_compare, allocator_type>::iterator iterator;
+		typedef typename ft::__rbt<value_type, key_type, value_compare, allocator_type>::const_iterator const_iterator;
+		typedef ft::reverse_iterator<iterator> reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 		private:
 				key_compare __key_comp;
@@ -72,6 +73,7 @@ namespace ft {
 				ft::__rbt<value_type, key_type, value_compare, allocator_type> __rbt;
 
 		public:
+			/* orthdox */
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 				: __key_comp(comp), __value_comp(comp), __rbt(__value_comp, alloc) {}
 			template <class InputIterator>
@@ -116,14 +118,14 @@ namespace ft {
 			{
 				iterator i = find(key);
 				if (i == end())
-					throw std::out_of_range("out of range");
+					throw std::out_of_range("ft::map::at");
 				return i->second;
 			}
 			const mapped_type& at(const key_type& key) const
 			{
 				const_iterator i = find(key);
 				if (i == end())
-					throw std::out_of_range("out of range");
+					throw std::out_of_range("ft::map::at");
 				return i->second;
 			}
 
@@ -195,33 +197,28 @@ namespace ft {
 		{ return x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin()); }
 
 		template <class Key, class T, class Compare, class Alloc>
-		bool operator!=(const ft::map<Key, T, Compare, Alloc>& x,
-						const ft::map<Key, T, Compare, Alloc>& y)
+		bool operator!=(const ft::map<Key, T, Compare, Alloc>& x, const ft::map<Key, T, Compare, Alloc>& y)
 		{ return !(x == y); }
 
 		template <class Key, class T, class Compare, class Alloc>
-		bool operator<(const ft::map<Key, T, Compare, Alloc>& x,
-						const ft::map<Key, T, Compare, Alloc>& y)
+		bool operator<(const ft::map<Key, T, Compare, Alloc>& x, const ft::map<Key, T, Compare, Alloc>& y)
 		{ return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); }
 
 		template <class Key, class T, class Compare, class Alloc>
-		bool operator<=(const ft::map<Key, T, Compare, Alloc>& x,
-						const ft::map<Key, T, Compare, Alloc>& y)
+		bool operator<=(const ft::map<Key, T, Compare, Alloc>& x, const ft::map<Key, T, Compare, Alloc>& y)
 		{ return !(y < x); }
 
 		template <class Key, class T, class Compare, class Alloc>
-		bool operator>(const ft::map<Key, T, Compare, Alloc>& x,
-					const ft::map<Key, T, Compare, Alloc>& y)
+		bool operator>(const ft::map<Key, T, Compare, Alloc>& x, const ft::map<Key, T, Compare, Alloc>& y)
 		{ return y < x; }
 
 		template <class Key, class T, class Compare, class Alloc>
-		bool operator>=(const ft::map<Key, T, Compare, Alloc>& x,
-						const ft::map<Key, T, Compare, Alloc>& y)
+		bool operator>=(const ft::map<Key, T, Compare, Alloc>& x, const ft::map<Key, T, Compare, Alloc>& y)
 		{ return !(x < y); }
 
+		/* non-member function */
 		template <class Key, class T, class Compare, class Alloc>
-		void swap(ft::map<Key, T, Compare, Alloc>& x,
-				ft::map<Key, T, Compare, Alloc>& y)
+		void swap(ft::map<Key, T, Compare, Alloc>& x, ft::map<Key, T, Compare, Alloc>& y)
 		{ x.swap(y); }
 
 }
