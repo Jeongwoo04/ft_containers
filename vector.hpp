@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:04:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/12 14:28:30 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/12 19:06:03 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,9 +266,13 @@ namespace ft {
 				pointer ptr = _begin + space;
 				_alloc_construct(n);
 				std::copy_backward(ptr, _end - n, _end);
-				for (InputIterator i = first ; i != last ; i++, ptr++)
-					*ptr = *i;
+				// for (InputIterator rit = last; rit != first; )
+				// 	*(ptr + --n) = *--rit;
+				// *ptr = *first;
+				for (InputIterator it = first; it != last; )
+					*ptr++ = *it++;
 			}
+
 			iterator erase(iterator _idx)
 			{
 				difference_type space = _idx - begin();
@@ -345,12 +349,12 @@ namespace ft {
 			{ return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()); }
 
 			template <typename T, class Alloc>
-			bool operator>(const ft::vector<T, Alloc>& x, const ft::vector<T, Alloc>& y)
-			{ return (y < x); }
+			bool operator<=(const ft::vector<T, Alloc>& x, const ft::vector<T, Alloc>& y)
+			{ return !(y < x); }
 
 			template <typename T, class Alloc>
-			bool operator<=(const ft::vector<T, Alloc>& x, const ft::vector<T, Alloc>& y)
-			{ return !(x > y); }
+			bool operator>(const ft::vector<T, Alloc>& x, const ft::vector<T, Alloc>& y)
+			{ return (y < x); }
 
 			template <typename T, class Alloc>
 			bool operator>=(const ft::vector<T, Alloc>& x, const ft::vector<T, Alloc>& y)
