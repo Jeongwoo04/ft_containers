@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:04:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/12 19:06:03 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/12 23:17:34 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ namespace ft {
 
 		public:
 			/* orthdox */
-			explicit vector(const allocator_type& alloc = allocator_type())
+			vector(const allocator_type& alloc = allocator_type())
 				: _begin(NULL), _end(NULL), _capacity(NULL), _alloc(alloc) {}
-			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+			vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 				: _alloc(alloc)
 			{
 				_vector_init(n);
