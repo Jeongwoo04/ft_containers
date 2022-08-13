@@ -410,5 +410,7 @@ int main() {
 			s.clear();
 			std::cout << "after clear: size = " << s.size() << "\n";
 		}
+
+		system("leaks ft_container.out");
 	return 0;
 }

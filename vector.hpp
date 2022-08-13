@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:04:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/13 12:55:26 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/13 12:59:18 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
  * std::allocator::construct(p, val)	: p가 가리키는 곳에 object val의 생성자를 대입
  * std::allocator::destroy(p)			: p가 가리키는 object의 소멸자 호출
  */
-# include <vector>
 
 namespace ft {
 
