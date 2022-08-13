@@ -215,7 +215,6 @@ namespace ft {
 				++tmp;
 				if (_idx == begin())
 					__begin = tmp.base();
-				--__size;
 				__remove(_idx.base());
 				del_node(_idx.base());
 				return tmp;
@@ -232,7 +231,6 @@ namespace ft {
 					++tmp;
 					__begin = tmp.base();
 				}
-				--__size;
 				__remove(it.base());
 				del_node(it.base());
 				return 1;
@@ -311,6 +309,7 @@ namespace ft {
 			}
 			void	del_node(node_pointer nd_ptr)
 			{
+				--__size;
 				__alloc.destroy(nd_ptr);
 				__alloc.deallocate(nd_ptr, 1);
 			}

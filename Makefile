@@ -23,6 +23,7 @@ CCBLUE_BOLD	= \033[1;34m
 CCEND		= \033[0m
 
 all: $(NAME_FT) $(NAME_STD)
+	$(shell ./ft_container.out > a.txt ; ./std_container.out > b.txt)
 
 ft: $(NAME_FT)
 
@@ -49,6 +50,7 @@ clean:
 fclean: clean
 	@echo "$(CCBLUE) >>> make fclean <<< $(CCEND)"
 	$(RM) $(NAME_FT) $(NAME_STD)
+	$(RM) *.txt
 
 re: fclean all
 

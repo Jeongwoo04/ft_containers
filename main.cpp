@@ -33,11 +33,11 @@ void prn_map(ft::map<char,int> &m) {
 }
 
 int main() {
-	// #ifdef STD
-	// 	std::cout << "===  STD  ===\n";
-	// #else
-	// 	std::cout << "=== FT ===\n";
-	// #endif
+	#ifdef STD
+		std::cout << "===  STD  ===\n";
+	#else
+		std::cout << "=== FT ===\n";
+	#endif
 
 	// 	std::cout << "v : ";
 	// 	ft::vector<int> v;
@@ -264,23 +264,23 @@ int main() {
 	// 		std::cout << (v1>=v2) << "\n";
 	// 	}
 
-	// 	{
-	// 		std::cout << "=== pair ===\n";
-	// 		ft::pair<int,char> foo(10, 'a');
-	// 		ft::pair<int,char> bar(10, 'z');
-	// 		std::cout << "foo = (" << foo.first << ", " << foo.second << ")\n";
-	// 		std::cout << "bar = (" << bar.first << ", " << bar.second << ")\n";
-	// 		std::cout << "foo == bar : " << (foo == bar) << "\n";
-	// 		std::cout << "foo < bar : " << (foo < bar) << "\n";
-	// 		ft::pair<std::string, double> p1;
-	// 		ft::pair<std::string, double> p2("tomatoes", 2.3);
-	// 		ft::pair<std::string, double> p3(p2);
-	// 		p1 = ft::make_pair("lightbulbs", 0.99);
-	// 		p2.first = "shoes"; p2.second = 49;
-	// 		std::cout << "p1 = (" << p1.first << ", " << p1.second << ")\n";
-	// 		std::cout << "p2 = (" << p2.first << ", " << p2.second << ")\n";
-	// 		std::cout << "p3 = (" << p3.first << ", " << p3.second << ")\n";
-	// 	}
+		{
+			std::cout << "=== pair ===\n";
+			ft::pair<int,char> foo(10, 'a');
+			ft::pair<int,char> bar(10, 'z');
+			std::cout << "foo = (" << foo.first << ", " << foo.second << ")\n";
+			std::cout << "bar = (" << bar.first << ", " << bar.second << ")\n";
+			std::cout << "foo == bar : " << (foo == bar) << "\n";
+			std::cout << "foo < bar : " << (foo < bar) << "\n";
+			ft::pair<std::string, double> p1;
+			ft::pair<std::string, double> p2("tomatoes", 2.3);
+			ft::pair<std::string, double> p3(p2);
+			p1 = ft::make_pair("lightbulbs", 0.99);
+			p2.first = "shoes"; p2.second = 49;
+			std::cout << "p1 = (" << p1.first << ", " << p1.second << ")\n";
+			std::cout << "p2 = (" << p2.first << ", " << p2.second << ")\n";
+			std::cout << "p3 = (" << p3.first << ", " << p3.second << ")\n";
+		}
 
 
 		std::cout << "\n\n=== map ===\n";
@@ -297,7 +297,6 @@ int main() {
 		std::cout << "empty : " << m.empty() << "           size= " << m.size() << "\n";
 
 		std::cout << "\nvalue of 'b' : " << m.find('b')->second << "\n";
-		std::cout << "m.insert('b')" << m.insert(ft::pair<char,int>('b', 2)) << std::endl;
 		m['b'] = 42;
 		std::cout << "\nchange value of 'b' by idx : " << m.find('b')->second << "\n";
 
@@ -336,7 +335,7 @@ int main() {
 		ft::pair<ft::map<char,int>::iterator, bool> ret;
 		ret = m.insert( ft::pair<char,int>('z', 500));
 		if (ret.second == false) {
-			std::cout << "'z' already existed with a value of " << ret.first->second << "\n";
+			std::cout << "'z' : " << ret.first->first << ", already existed with a value of " << ret.first->second << "\n";
 		}
 		prn_map(m);
 
@@ -373,61 +372,43 @@ int main() {
 		}
 
 
-	// 	std::cout << "\n ===== stack =====\n";
-	// 	ft::stack<int> st;
+		std::cout << "\n ===== stack =====\n";
+		ft::stack<int> st;
 
-	// 	std::cout << "size=" << st.size() << "      is_empty=" << st.empty() << "\n";
-	// 	st.push(1);
-	// 	st.push(2);
-	// 	st.push(3);
-	// 	st.push(4);
-	// 	st.push(5);
+		std::cout << "size=" << st.size() << "      is_empty=" << st.empty() << "\n";
+		st.push(1);
+		st.push(2);
+		st.push(3);
+		st.push(4);
+		st.push(5);
 
-	// 	std::cout << "size=" << st.size() << " , is_empty=" << st.empty() << "\n";
-	// 	while (st.size()) {
-	// 		std::cout << st.top() << "\n";
-	// 		st.pop();
-	// 	}
+		std::cout << "size=" << st.size() << " , is_empty=" << st.empty() << "\n";
+		while (st.size()) {
+			std::cout << st.top() << "\n";
+			st.pop();
+		}
 
-	// 	std::cout << "size=" << st.size() << " , is_empty=" << st.empty() << "\n";
-
-
+		std::cout << "size=" << st.size() << " , is_empty=" << st.empty() << "\n";
 
 
-	// 	std::cout << "\n=== set ===\n";
-
-	// 	{
-	// 		ft::set<int> s;
-	// 		std::cout << "0 ~ 10000 insert\n";
-	// 		for (int i = 0; i < 10000; i++)
-	// 			s.insert(i);
-	// 		std::cout << "size = " << s.size() << "\n";
-
-	// 		std::cout << "2000 ~ 3000 erase\n";
-	// 		for (int i = 2000; i < 3000; i++)
-	// 			s.erase(i);
-	// 		std::cout << "size = " << s.size() << "\n";
-	// 		std::cout << "set clear\n";
-	// 		s.clear();
-	// 		std::cout << "after clear: size = " << s.size() << "\n";
-	// 	}
 
 
-	// 	{
-	// 		ft::set<int> s;
-	// 		std::cout << "랜덤한 숫자 100만 insert\n";
-	// 		for (int i = 0; i < 1000000; i++)
-	// 			s.insert(rand() % 1000000);
-	// 		std::cout << "size = " << s.size() << "\n";
+		std::cout << "\n=== set ===\n";
 
-	// 		std::cout << "랜덤한 숫자를 10만 erase\n";
-	// 		for (int i = 0; i < 100000; i++)
-	// 			s.erase(rand() % 100000);
-	// 		std::cout << "size = " << s.size() << "\n";
+		{
+			ft::set<int> s;
+			std::cout << "0 ~ 10000 insert\n";
+			for (int i = 0; i < 10000; i++)
+				s.insert(i);
+			std::cout << "size = " << s.size() << "\n";
 
-	// 		std::cout << "복사 s1(s)\n";
-	// 		ft::set<int> s1(s);
-	// 		std::cout << "s1.size() = " << s1.size() << "\n";
-	// 	}
+			std::cout << "2000 ~ 3000 erase\n";
+			for (int i = 2000; i < 3000; i++)
+				s.erase(i);
+			std::cout << "size = " << s.size() << "\n";
+			std::cout << "set clear\n";
+			s.clear();
+			std::cout << "after clear: size = " << s.size() << "\n";
+		}
 	return 0;
 }

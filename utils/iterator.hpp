@@ -7,6 +7,16 @@
 
 namespace ft {
 
+	// We don't need custom tags.
+	// Use defined in std namespace, so that <algorithm> or other STL functions can identify iterator's category properly.
+	/*
+	struct random_access_iterator_tag {};
+	struct bidirectional_iterator_tag {};
+	struct forward_iterator_tag {};
+	struct input_iterator_tag {};
+	struct output_iterator_tag {};
+	*/
+
 	template <class Iterator>
 	class iterator_traits
 	{
@@ -322,7 +332,7 @@ namespace ft {
 
 			template <typename V>
 			bool operator!=(const tree_iterator<V, node_type>& x) const
-			{ return !(*this == x); }
+			{ return !(__cur == x.base()); }
 
 			operator tree_iterator<const value_type, node_type>(void) const
 			{ return (tree_iterator<const value_type, node_type>(__cur, __nil)); }

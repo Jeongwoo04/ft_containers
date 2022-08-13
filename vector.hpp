@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 18:04:54 by jeson             #+#    #+#             */
-/*   Updated: 2022/08/12 23:17:34 by jeson            ###   ########.fr       */
+/*   Updated: 2022/08/13 12:55:26 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,8 @@ namespace ft {
 					return;
 				if (n < capacity() * 2)
 					n = capacity() * 2;
+				if (n > max_size())
+					throw std::length_error("ft::vector::reserve");
 				size_type x_size = size();
 				size_type x_capacity = capacity();
 				pointer _ptr = _alloc.allocate(n);
